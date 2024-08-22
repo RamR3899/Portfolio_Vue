@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ganesh Ram R - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1>Ganesh Ram R</h1>
+            <h5>B.Tech Information Technology, Final year</h5>
+        </div>
+        <nav>
+            <ul class="header-right">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main id="app"> <!-- Bind Vue.js to the main container -->
+        <!-- Your portfolio content goes here -->
+        <div class="content" style="margin-top: 190px;">
+            <div class="intro">
+                <h2 class="typing">Hey, I am Ganesh Ram R</h2>
+                <p class="typing">Web Developer</p>
+                <!-- <p class="typing">Web Developer and UI/UX Designer</p> -->
+                <a href="Ganesh Ram R_Resume (1).pdf" download="Ganesh_Ram_R_Resume" class="download-button">Download Resume</a>
+                <p>
+                    <img src="phone-logo.png" alt="Phone" style="width: 20px; vertical-align: middle; text-decoration: underline;">
+                    <a href="tel:9025674016" style="text-decoration: underline;">9025674016</a>
+                </p>
+                <p>
+                    <img src="gmail-logo.png" alt="Gmail" style="width: 20px; vertical-align: middle; text-decoration: underline;">
+                    <a href="mailto:2115017@nec.edu.in" style="text-decoration: underline;">2115017@nec.edu.in</a>
+                </p>                
+            </div>   
+            <a href="#about" class="arrow-container">
+                <div class="arrow"></div>
+            </a>         
+            <div class="about-container" id="about">
+                <div class="about-card">
+                    <div class="about-left">
+                        <img src="Ganesh Ram R.jpg" alt="Profile Picture">
+                    </div>
+                    <div class="about-right">
+                        <h3>About Me</h3>
+                        <p>I am a passionate web developer and UI/UX designer with a keen eye for detail and a love for creating intuitive user experiences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="education-container" id="education">
+            <h3 class="animated-text">Education</h3>
+            <ul class="education-list">
+                <li class="animated-item">
+                    <span class="degree">B.Tech in Information Technology</span> - <span class="institution">National Engineering College, Kovilpatti</span>
+                    <span class="details">7.02 CGPA (upto 4th semester) | 2021 - Present</span>
+                </li>
+                <li class="animated-item">
+                    <span class="degree">HSC</span> - <span class="institution">Everwin Matriculation Higher Secondary School, Chennai</span>
+                    <span class="details">84.78% | May 2021</span>
+                </li>
+                <li class="animated-item">
+                    <span class="degree">SSLC</span> - <span class="institution">Everwin Matriculation Higher Secondary School, Chennai</span>
+                    <span class="details">82.2% | March 2019</span>
+                </li>
+            </ul>
+        </div> -->
+
+        <div class="education-container" id="education">
+            <h3>Education</h3>
+            <div class="education-cards">
+                <div 
+                    class="education-card" 
+                    v-for="education in educations" 
+                    :key="education.degree"
+                    :class="{
+                        'bg-light': education.degree === 'SSLC',
+                        'bg-secondary': education.degree === 'HSC',
+                        'bg-primary': education.degree === 'B.Tech in Information Technology'
+                    }"
+                >
+                    <div class="education-header">
+                        <h3>{{ education.degree }}</h3>
+                    </div>
+                    <div class="education-content">
+                        <h4>{{ education.institution }}</h4>
+                    </div>
+                    <div class="education-footer">
+                        <div class="details">{{ education.details }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- <div class="skills-container" id="skills" style="margin-top: 40px;">
+            <h3 class="animated-text">Skills</h3>
+            <div class="skills">
+                <div class="skill">
+                    <img src="c-logo.png" alt="C">
+                    <span>C</span>
+                    <div class="skill-popup">
+                        <p>Familiar with the basic syntax of C programming and capable of solving simple problems.</p>
+                    </div>
+                </div>
+                <div class="skill">
+                    <img src="html-logo.png" alt="HTML">
+                    <span>HTML</span>
+                    <div class="skill-popup">
+                        <p>Experienced in creating semantic HTML structures and ensuring responsive and accessible web design.</p>
+                    </div>
+                </div>
+                <div class="skill">
+                    <img src="css-logo.png" alt="CSS">
+                    <span>CSS</span>
+                    <div class="skill-popup">
+                        <p>Skilled in styling web pages using CSS, including Flexbox, Grid, and animations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>         -->
+        <div class="skills-container" id="skills" style="margin-top: 40px;">
+            <h3 class="animated-text">Skills</h3>
+            <div class="skills">
+                <div class="skill-card" v-for="skill in skills">
+                    <img :src="skill.image" :alt="skill.name">
+                    <h4>{{ skill.name }}</h4>
+                    <p>{{ skill.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div id="projects" class="projects-container" style="margin-top: 20px;">
+            <h3 class="animated-text">Projects</h3>
+            <div class="projects-scroll-container">
+              <button @click="scrollLeft" class="scroll-button left-button">❮</button>
+              <div class="projects-scroll" ref="scrollContainer">
+                <div class="project-card" v-for="project in projects" :key="project.title">
+                  <div class="card-content">
+                    <img :src="project.image" :alt="project.title" class="project-image">
+                    <div class="card-details">
+                      <h4 class="project-title">{{ project.title }}</h4>
+                      <p class="project-aim"><b>Aim:</b> {{ project.aim }}</p>
+                      <p class="project-tech"><b>Technologies Used:</b> {{ project.technologies }}</p>
+                      <p class="project-contribution"><b>Contribution:</b> {{ project.contribution }}</p>
+                      <div class="button-container">
+                        <a :href="project.github" target="_blank" class="github-button">View on GitHub</a>
+                        <div class="arrow-right"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+              <button @click="scrollRight" class="scroll-button right-button">❯</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="center">
+            <h2>Contact</h2>
+            <div class="contact" id="contact">
+                <div class="social">
+                    <span><a href="https://www.instagram.com/.mrunique.?igsh=MTdzZTQybmM2c2Voaw==" target="_blank"><img src="instagram-logo.png" alt="Instagram"></a></span>
+                    <span><a href="https://wa.me/qr/TLJOOL3BCYKGO1" target="_blank"><img src="whatsapp-logo.png" alt="WhatsApp"></a></span>
+                    <span><a href="mailto:2115017@nec.edu.in"><img src="gmail-logo.png" alt="Gmail"></a></span>
+                    <span><a href="https://www.linkedin.com/in/ganesh-ram-r-0a2756229/" target="_blank"><img src="linkedin-logo.png" alt="LinkedIn"></a></span>
+                    <span><a href="https://github.com/RamR3899" target="_blank"><img src="github-logo.png" alt="GitHub"></a></span>
+                </div>                                        
+            </div>
+        </div>
+        <p>&copy; 2024 Ganesh Ram R</p>
+    </footer>
+    <script>
+        new Vue({
+            el: '#app', // This should be the id of your main container
+            data: {
+                //message: 'Hello Vue.js!',
+                projects: [
+                    {
+                        title: 'Placement Management System',
+                        aim: 'To streamline the placement process in educational institutions.',
+                        technologies: 'HTML, CSS, JavaScript, PHP',
+                        contribution: 'Developed and implemented the user interface and backend logic.',
+                        github: 'https://github.com/SathishKumar03082004/Placement-Management-System',
+                        image: 'project1.jpg'
+                    },
+                    {
+                        title: 'Net Profit Margin Calculator',
+                        aim: 'To help businesses quickly and accurately determine their net profit margin.',
+                        technologies: 'React, Tailwind CSS, Node.js',
+                        contribution: 'Designed and implemented the frontend using React and Tailwind CSS.',
+                        github: 'https://github.com/Mangai-23/Net-Profit-Margin-Calculator',
+                        image: 'project2.png'
+                    }
+                ],
+                skills: [
+                    {
+                        name: 'C',
+                        description: 'Familiar with the basic syntax of C programming and capable of solving simple problems.',
+                        image: 'c-logo.png'
+                    },
+                    {
+                        name: 'HTML',
+                        description: 'Experienced in creating semantic HTML structures and ensuring responsive and accessible web design.',
+                        image: 'html-logo.png'
+                    },
+                    {
+                        name: 'CSS',
+                        description: 'Skilled in styling web pages using CSS, including Flexbox, Grid, and animations.',
+                        image: 'css-logo.png'
+                    }
+                ],
+                educations: [
+                    {
+                        degree: 'SSLC',
+                        institution: 'Everwin Matriculation Higher Secondary School, Chennai',
+                        details: '82.2% | March 2019'
+                    },
+                    {
+                        degree: 'HSC',
+                        institution: 'Everwin Matriculation Higher Secondary School, Chennai',
+                        details: '84.78% | May 2021'
+                    },
+                    {
+                        degree: 'B.Tech in Information Technology',
+                        institution: 'National Engineering College, Kovilpatti',
+                        details: '7.02 CGPA (upto 4th semester) | 2021 - Present'
+                    }
+                ]
+            },
+            methods: {
+                scrollLeft() {
+                    this.$refs.scrollContainer.scrollBy({
+                        left: -600,
+                        behavior: 'smooth'
+                    });
+                },
+                scrollRight() {
+                    this.$refs.scrollContainer.scrollBy({
+                        left: 600,
+                        behavior: 'smooth'
+                    });
+                 },
+                getCardClass(degree) {
+                    switch(degree) {
+                        case 'SSLC':
+                            return 'bg-light';
+                        case 'HSC':
+                            return 'bg-secondary text-white';
+                        case 'B.Tech in Information Technology':
+                            return 'bg-primary text-white';
+                        default:
+                            return '';
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
