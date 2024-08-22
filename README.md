@@ -1,5 +1,3 @@
-Here's a template for your `README.md` file on GitHub. You can customize it according to your portfolio details:
-
 ---
 
 # Ganesh Ram R - Portfolio
